@@ -17,6 +17,7 @@ class App extends React.Component {
   }
 
   async fetchData() {
+    this.setState({ source: '' });
     const response = await fetch('https://dog.ceo/api/breeds/image/random');
     const responseJSON = await response.json();
     const imgSrc = responseJSON.message;
@@ -27,7 +28,7 @@ class App extends React.Component {
     const { source } = this.state;
     return (
       <div>
-        <Image src={ source } />
+        { this.state.source ? <Image src={ source } /> : 'Loading...' }
       </div>
     )
   }

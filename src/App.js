@@ -8,7 +8,7 @@ class App extends React.Component {
 
     this.fetchData = this.fetchData.bind(this);
     this.state = {
-      source: '',
+      source: [],
     }
   }
 
@@ -17,18 +17,22 @@ class App extends React.Component {
   }
 
   async fetchData() {
-    this.setState({ source: '' });
     const response = await fetch('https://dog.ceo/api/breeds/image/random');
     const responseJSON = await response.json();
     const imgSrc = responseJSON.message;
-    this.setState({ source: imgSrc });
+    this.setState(
+      (prevState) => { return (
+        { source: [...prevState.source, imgSrc] }
+      )}
+    );
   }
 
   render() {
     const { source } = this.state;
     return (
-      <div>
-        { this.state.source ? <Image src={ source } /> : 'Loading...' }
+      <div className="dogs-container">
+        <button onClick={ this.fetchData }>Add dog</button>
+        { source ? source.map((src) => { return <Image src={ src } key={ src } /> }) : 'Loading...' }
       </div>
     )
   }

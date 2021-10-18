@@ -19,10 +19,10 @@ class App extends React.Component {
   async fetchData() {
     const response = await fetch('https://dog.ceo/api/breeds/image/random');
     const responseJSON = await response.json();
-    const imgSrc = responseJSON.message;
+    const imgSource = responseJSON.message;
     this.setState(
       (prevState) => { return (
-        { source: [...prevState.source, imgSrc] }
+        { source: [...prevState.source, imgSource] }
       )}
     );
   }
